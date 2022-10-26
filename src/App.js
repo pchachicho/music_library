@@ -1,29 +1,42 @@
-import { useState, useEffect } from "react";
-import Gallery from "./Gallery";
-import SearchBar from "./SearchBar";
+import Gallery from "./Gallery"
+import SearchBar from "./SearchBar"
+import {useEffect, useState} from 'react'
 
-function App() {
-  let [search, setSearch] = useState("");
-  let [message, setMessage] = useState("Search for Music!");
-  let [data, setData] = useState([]);
+const App = () => {
+  let [search, setSearch] = useState('')
+  let [message, setMessage] = useState('Search for Music!')
+  let [data, setData] = useState([])
+
+  const API_URL = 'https://itunes.apple.com/search?term='
 
   useEffect(() => {
-    const fetchData = async () => {
-      document.title = `${search} Music`
-      const response = await fetch('https://itunes.apple.com/search?term=the%20grateful%20dead')
-      const resData = await response.json()
-      console.log(resData)
+      if(search) {
+          const fetchData = async () => {
+              document.title = `${search} music`
+              const response = await fetch(API_URL + search)
+              const resData = await response.json()
+              if (resData.results.length > 0) {
+                  return setData(resData.results)
+              } else {
+                  return setMessage('Not Found.')
+              }
+          }
+          fetchData()
+      }
+  }, [search])
 
-    }
-    fetchData()
-  })
+  const handleSearch = (e, term) => {
+      e.preventDefault()
+      setSearch(term)
+  }
+
   return (
-    <div>
-      <SearchBar />
-      {message}
-      <Gallery />
-    </div>
-  );
+      <div>
+          <SearchBar handleSearch={handleSearch} />
+          {message}
+          <Gallery data={data} />
+      </div>
+  )
 }
 
-export default App;
+export default App
