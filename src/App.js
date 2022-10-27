@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Gallery from "./Gallery";
 import SearchBar from "./SearchBar";
+import { DataContext } from "./context/DataContext";
 
 function App() {
   let [search, setSearch] = useState("");
@@ -9,19 +10,22 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      document.title = `${search} Music`
-      const response = await fetch('https://itunes.apple.com/search?term=the%20grateful%20dead')
-      const resData = await response.json()
-      console.log(resData)
-
-    }
-    fetchData()
-  })
+      document.title = `${search} Music`;
+      const response = await fetch(
+        "https://itunes.apple.com/search?term=the%20grateful%20dead"
+      );
+      const resData = await response.json();
+      console.log(resData);
+    };
+    fetchData();
+  });
   return (
     <div>
       <SearchBar />
       {message}
-      <Gallery />
+      <DataContext.Provider value={data}>
+        <Gallery />
+      </DataContext.Provider>
     </div>
   );
 }
