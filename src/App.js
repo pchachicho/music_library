@@ -11,6 +11,8 @@ function App() {
   let [data, setData] = useState([]);
 
   const API_URL = "https://itunes.apple.com/search?term=";
+  // https://itunes.apple.com/search?term=the%20grateful%20dead
+//https://itunes.apple.com/search?term=
 
   useEffect(() => {
     if (search) {
