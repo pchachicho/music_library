@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Gallery from "./Gallery";
-import SearchBar from "./SearchBar";
+import Gallery from "./components/Gallery";
+import SearchBar from "./components/SearchBar";
 import AlbumView from "./ArtistComp/AlbumView";
 import ArtistView from "./ArtistComp/ArtistView";
 
