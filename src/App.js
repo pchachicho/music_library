@@ -1,5 +1,5 @@
-import Gallery from "./Gallery"
-import SearchBar from "./SearchBar"
+import Gallery from "./components/Gallery"
+import SearchBar from "./components/SearchBar"
 import {useEffect, useState} from 'react'
 
 const App = () => {
