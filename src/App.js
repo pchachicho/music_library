@@ -1,9 +1,12 @@
 
 import { useState, Suspense, useEffect } from 'react'
-import Gallery from './components/Gallery'
-import SearchBar from './components/SearchBar'
-import Spinner from './components/Spinner'
 import { createResource as fetchData } from './helper'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Spinner from './components/Spinner'
+import AlbumView from "./ArtistComp/AlbumView";
+import ArtistView from "./ArtistComp/ArtistView";
+import Gallery from './components/Gallery';
+import SearchBar from './components/SearchBar';
 
 function App() {
   let [searchTerm, setSearchTerm] = useState('')
@@ -33,11 +36,30 @@ function App() {
     }
   }
 
+//   return (
+//     <div className="App">
+//       <SearchBar handleSearch={handleSearch} />
+//       {message}
+//       {renderGallery()}
+
   return (
-    <div className="App">
-      <SearchBar handleSearch={handleSearch} />
+    <div>
       {message}
-      {renderGallery()}
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <SearchBar handleSearch={handleSearch} />
+                {renderGallery()}
+              </>
+            }
+          />
+          <Route path="/album/:id" element={<AlbumView />} />
+          <Route path="/artist/:id" element={<ArtistView />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
